@@ -308,8 +308,7 @@ int secp256k1_ecdsa_verify(const secp256k1_context* ctx, const secp256k1_ecdsa_s
 }
 
 /** To add some randomness */ 
-static unsigned char data2[32] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
-                                17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+static uint64_t data2[4] = {0, 1, 2, 3};
 static int nonce_function_rfc6979(unsigned char *nonce32, const unsigned char *msg32, const unsigned char *key32, const unsigned char *algo16, void *data, unsigned int counter) {
    unsigned char keydata[112];
    int keylen = 64;
@@ -332,7 +331,7 @@ static int nonce_function_rfc6979(unsigned char *nonce32, const unsigned char *m
        keylen = 96;
    }
    */ 
-   data2[31] ++;
+   data2[2] ++;
    memcpy(keydata + 64, data2, 32);
    keylen = 96;
     
